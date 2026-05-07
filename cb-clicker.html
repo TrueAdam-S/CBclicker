@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CB Clicker 👟</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --panel: #13131a;
+    --border: #2a2a3a;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --red: #e05050;
+    --green: #50c878;
+    --text: #f0ede8;
+    --muted: #888;
+    --glow: rgba(200,169,110,0.3);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(200,169,110,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(100,100,200,0.04) 0%, transparent 60%);
+  }
+  h1,h2,h3 { font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+
+  .news-ticker {
+    background: var(--red);
+    padding: 5px 0;
+    overflow: hidden;
+  }
+  .ticker-inner {
+    white-space: nowrap;
+    animation: ticker 35s linear infinite;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-300%); }
+  }
+
+  .header {
+    text-align: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(200,169,110,0.05) 0%, transparent 100%);
+  }
+  .header h1 { font-size: 3rem; color: var(--accent); text-shadow: 0 0 40px var(--glow); line-height:1; }
+  .header p { color:var(--muted); font-size:0.82rem; margin-top:4px; font-style:italic; }
+  .rep-badge {
+    display:inline-block; background:var(--red); color:white;
+    font-size:0.6rem; font-weight:700; padding:2px 8px; border-radius:20px;
+    letter-spacing:1px; text-transform:uppercase; margin-left:8px;
+    vertical-align:middle; animation:pulse-badge 2s infinite;
+  }
+  @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.65} }
+
+  .game-layout {
+    display: grid;
+    grid-template-columns: 270px 1fr 290px;
+    height: calc(100vh - 108px);
+    overflow: hidden;
+  }
+
+  /* LEFT */
+  .left-panel {
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 14px; gap: 10px;
+    overflow-y: auto;
+  }
+  .currency-display {
+    text-align:center;
+    background: linear-gradient(135deg, #1a1a12, #1a1510);
+    border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px;
+    box-shadow: 0 0 20px rgba(200,169,110,0.1);
+  }
+  .currency-display .label { font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:2px; }
+  .currency-display .amount { font-family:'Bebas Neue',sans-serif; font-size:2.1rem; color:var(--accent); text-shadow:0 0 20px var(--glow); line-height:1.1; }
+  .currency-display .per-sec { font-size:0.73rem; color:var(--green); margin-top:3px; }
+
+  .stats-box { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; }
+  .stats-box h3 { font-size:0.85rem; color:var(--accent); margin-bottom:8px; }
+  .stat-row { display:flex; justify-content:space-between; font-size:0.77rem; padding:3px 0; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--muted); }
+  .stat-row span:last-child { color:var(--text); font-weight:600; }
+
+  .achievement { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:6px; padding:7px 10px; font-size:0.72rem; display:flex; gap:8px; align-items:center; opacity:0.38; transition:all 0.3s; }
+  .achievement.unlocked { opacity:1; border-color:var(--accent); background:rgba(200,169,110,0.06); }
+  .achievement .icon { font-size:1.1rem; }
+  .achievement .ach-title { font-weight:700; font-size:0.7rem; }
+  .achievement .ach-desc { color:var(--muted); font-size:0.62rem; }
+  .achievements-list { display:flex; flex-direction:column; gap:4px; }
+
+  /* CENTER */
+  .center-panel {
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:22px; padding:20px; position:relative; overflow:hidden;
+  }
+  .click-area { position:relative; cursor:pointer; user-select:none; transition:transform 0.08s; }
+  .click-area:active { transform:scale(0.92); }
+  .alexander-img {
+    width:220px; height:220px; border-radius:50%;
+    object-fit:cover; object-position:top center;
+    border:4px solid var(--accent);
+    box-shadow: 0 0 0 8px rgba(200,169,110,0.1), 0 0 60px rgba(200,169,110,0.2), 0 20px 40px rgba(0,0,0,0.5);
+    display:block; pointer-events:none;
+  }
+  .click-ring {
+    position:absolute; inset:-12px; border-radius:50%;
+    border:2px dashed rgba(200,169,110,0.3);
+    animation:spin-ring 8s linear infinite;
+  }
+  .click-ring-2 {
+    position:absolute; inset:-24px; border-radius:50%;
+    border:1px dashed rgba(200,169,110,0.15);
+    animation:spin-ring 14s linear infinite reverse;
+  }
+  @keyframes spin-ring { to { transform:rotate(360deg); } }
+  .pandas-label {
+    position:absolute; bottom:-10px; left:50%; transform:translateX(-50%);
+    background:var(--red); color:white; font-size:0.58rem; font-weight:700;
+    letter-spacing:1px; padding:3px 10px; border-radius:20px; white-space:nowrap; text-transform:uppercase;
+  }
+  .click-hint { text-align:center; color:var(--muted); font-size:0.78rem; animation:float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  .click-value-badge {
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#000;
+    font-weight:700; font-size:0.73rem; padding:4px 14px; border-radius:20px;
+    display:inline-block; box-shadow:0 4px 12px rgba(200,169,110,0.3);
+  }
+  .float-num {
+    position:fixed; font-family:'Bebas Neue',sans-serif; font-size:1.4rem;
+    color:var(--accent); pointer-events:none;
+    animation:floatUp 1s ease-out forwards; z-index:1000;
+    text-shadow:0 0 10px var(--glow);
+  }
+  @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-80px) scale(1.3)} }
+
+  /* RIGHT */
+  .right-panel {
+    background:var(--panel); border-left:1px solid var(--border);
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .shop-header { padding:14px; border-bottom:1px solid var(--border); background:rgba(200,169,110,0.04); }
+  .shop-header h2 { font-size:1.3rem; color:var(--accent); }
+  .shop-header p { font-size:0.7rem; color:var(--muted); }
+  .tabs { display:flex; border-bottom:1px solid var(--border); }
+  .tab { flex:1; padding:8px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; cursor:pointer; background:none; border:none; color:var(--muted); transition:all 0.2s; border-bottom:2px solid transparent; }
+  .tab.active { color:var(--accent); border-bottom-color:var(--accent); background:rgba(200,169,110,0.05); }
+  .shop-items { flex:1; overflow-y:auto; padding:9px; display:flex; flex-direction:column; gap:5px; }
+  .shop-item {
+    background:var(--bg); border:1px solid var(--border); border-radius:8px;
+    padding:9px 11px; cursor:pointer; transition:all 0.2s;
+    display:flex; flex-direction:column; gap:2px; position:relative; overflow:hidden;
+  }
+  .shop-item::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent); opacity:0; transition:opacity 0.2s; }
+  .shop-item:hover:not(.cant-afford)::before { opacity:1; }
+  .shop-item:hover:not(.cant-afford) { border-color:var(--accent); background:rgba(200,169,110,0.06); transform:translateX(2px); }
+  .shop-item.cant-afford { opacity:0.45; cursor:not-allowed; }
+  .item-top { display:flex; justify-content:space-between; align-items:center; }
+  .item-name { font-weight:700; font-size:0.78rem; display:flex; align-items:center; gap:6px; }
+  .item-icon { font-size:0.95rem; }
+  .item-count { background:var(--accent); color:#000; font-size:0.62rem; font-weight:800; padding:1px 6px; border-radius:20px; min-width:20px; text-align:center; }
+  .item-cost { font-family:'Bebas Neue',sans-serif; font-size:0.92rem; color:var(--accent2); }
+  .item-desc { font-size:0.63rem; color:var(--muted); line-height:1.3; }
+  .item-effect { font-size:0.63rem; color:var(--green); }
+
+  .toast {
+    position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-100px);
+    background:var(--accent); color:#000; font-weight:700; font-size:0.82rem;
+    padding:9px 22px; border-radius:30px; z-index:999;
+    transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    white-space:nowrap; box-shadow:0 8px 30px rgba(200,169,110,0.5);
+  }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+</style>
+</head>
+<body>
+
+<div class="news-ticker">
+  <div class="ticker-inner">
+    🔥 BREAKING: Candia's Closet now shipping directly from Guangzhou &nbsp;&nbsp;&nbsp;&nbsp; 👟 Customer satisfied after waiting 6 months for "authentic" Jordans &nbsp;&nbsp;&nbsp;&nbsp; 📦 New PandaBuy haul just arrived — Alexander says "trust the process" &nbsp;&nbsp;&nbsp;&nbsp; 🧾 Customs seized shipment, Alexander blames "international logistics" &nbsp;&nbsp;&nbsp;&nbsp; 💬 "It's inspired by Louis Vuitton, not fake" — Alexander CB, 2025 &nbsp;&nbsp;&nbsp;&nbsp; 🎉 Candia's Closet Summer Sale: Buy 3 reps, get 1 "real" one (also rep) &nbsp;&nbsp;&nbsp;&nbsp; 📸 New QC pics just dropped. The logo is slightly crooked but "adds character" &nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<div class="header">
+  <h1>CB CLICKER <span class="rep-badge">REP GANG</span></h1>
+  <p>The world's #1 seller of "authentic" streetwear — powered by PandaBuy &amp; Alexander's entrepreneurial spirit 💼</p>
+</div>
+
+<div class="game-layout">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="currency-display">
+      <div class="label">Candia Coins</div>
+      <div class="amount" id="coin-display">0</div>
+      <div class="per-sec" id="per-sec-display">+0 coins/sec</div>
+    </div>
+
+    <div class="stats-box">
+      <h3>📊 Stats</h3>
+      <div class="stat-row"><span>Times Clicked</span><span id="stat-clicks">0</span></div>
+      <div class="stat-row"><span>Total Earned</span><span id="stat-total">0</span></div>
+      <div class="stat-row"><span>Packages Shipped</span><span id="stat-packages">0</span></div>
+      <div class="stat-row"><span>Customs Scares</span><span id="stat-customs">0</span></div>
+      <div class="stat-row"><span>Rep Rating</span><span id="stat-rep">0⭐</span></div>
+    </div>
+
+    <div class="stats-box">
+      <h3>🏆 Achievements</h3>
+      <div class="achievements-list" id="achievements-list"></div>
+    </div>
+  </div>
+
+  <!-- CENTER PANEL -->
+  <div class="center-panel">
+    <div style="text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--muted);letter-spacing:3px;margin-bottom:6px;">CANDIA'S CLOSET</div>
+      <div style="font-size:0.7rem;color:var(--muted);">Est. Yesterday &bull; PandaBuy Certified™ &bull; 100% Authentic*</div>
+      <div style="font-size:0.6rem;color:var(--muted);margin-top:2px;font-style:italic;">*not authentic</div>
+    </div>
+
+    <div class="click-area" id="click-target">
+      <div class="click-ring-2"></div>
+      <div class="click-ring"></div>
+      <img src="https://i.imgur.com/placeholder.jpg" class="alexander-img" id="alex-img" alt="Alexander CB" draggable="false" />
+      <div class="pandas-label">📦 PandaBuy CEO</div>
+    </div>
+
+    <div>
+      <div class="click-hint">Click Alexander to earn Candia Coins!</div>
+      <div style="text-align:center;margin-top:8px;">
+        <span class="click-value-badge" id="click-value-badge">+1 per click</span>
+      </div>
+    </div>
+
+    <div id="milestone-msg" style="text-align:center;min-height:28px;font-size:0.76rem;color:var(--muted);font-style:italic;max-width:300px;"></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="shop-header">
+      <h2>🛍 THE SHOP</h2>
+      <p>Invest in Alexander's empire of questionable authenticity</p>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('upgrades')">Upgrades</button>
+      <button class="tab" onclick="switchTab('buildings')">Business</button>
+    </div>
+    <div class="shop-items" id="shop-content"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== EMBED IMAGE =====
+// Load the local image and convert to data URL for use
+(function() {
+  // Use a canvas trick to embed the uploaded screenshot
+  const imgEl = document.getElementById('alex-img');
+  // We'll set a fallback style in case image doesn't load
+  imgEl.onerror = function() {
+    imgEl.style.display = 'none';
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = 'width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#2a2a1a,#1a1a2a);border:4px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:5rem;box-shadow:0 0 0 8px rgba(200,169,110,0.1),0 0 60px rgba(200,169,110,0.2)';
+    placeholder.textContent = '👦';
+    imgEl.parentNode.insertBefore(placeholder, imgEl);
+  };
+  imgEl.src = 'Screenshot_2026-05-06_15_45_52.png';
+})();
+
+// ===== GAME STATE =====
+let coins = 0, totalCoins = 0, totalClicks = 0;
+let coinsPerClick = 1, coinsPerSec = 0;
+let packages = 0, customsScares = 0;
+let activeTab = 'upgrades';
+
+// ===== UPGRADES =====
+const upgrades = [
+  { id:'u1', name:'PandaBuy Account', icon:'🐼', desc:'"Just browsing," says Alexander, sweating.', effect:'+1 per click', cost:25, bought:false, apply:()=>{coinsPerClick+=1;} },
+  { id:'u2', name:'Better Product Photos', icon:'📸', desc:'Blur the logo. Add a Rolex to the background. Professionalism.', effect:'+2 per click', cost:100, bought:false, apply:()=>{coinsPerClick+=2;} },
+  { id:'u3', name:'QC Pics Subscription', icon:'🔍', desc:'See the flaws before customers do. Then ship it anyway.', effect:'+3 per click', cost:350, bought:false, apply:()=>{coinsPerClick+=3;} },
+  { id:'u4', name:'Micro-Influencer Shill', icon:'📱', desc:'"Legit check passed!" — @user with 14 followers.', effect:'+5 per click', cost:900, bought:false, apply:()=>{coinsPerClick+=5;} },
+  { id:'u5', name:'Plain Box Shipping', icon:'📦', desc:'No branding. No logos. Customs sees: just a box. Perfect.', effect:'+8 per click', cost:2200, bought:false, apply:()=>{coinsPerClick+=8;} },
+  { id:'u6', name:'Fake Certificate of Auth', icon:'📜', desc:'"Serial number included." It is a QR code to rickroll.', effect:'+15 per click', cost:5500, bought:false, apply:()=>{coinsPerClick+=15;} },
+  { id:'u7', name:'Batch 3 Drop Hype', icon:'👔', desc:'The most replicated hoodie in human history. Drop incoming.', effect:'+25 per click', cost:13000, bought:false, apply:()=>{coinsPerClick+=25;} },
+  { id:'u8', name:'W2C Subreddit Post', icon:'🌐', desc:'"Where to cop" answered: PandaBuy link. 3000 upvotes.', effect:'+40 per click', cost:35000, bought:false, apply:()=>{coinsPerClick+=40;} },
+  { id:'u9', name:'Legit Check App Bypass', icon:'🕵️', desc:'Fool the algorithm. Alexander is now a "verified seller".', effect:'+70 per click', cost:90000, bought:false, apply:()=>{coinsPerClick+=70;} },
+];
+
+// ===== BUILDINGS =====
+const buildings = [
+  { id:'b1', name:'Instagram DMs', icon:'💬', desc:'"DM for prices." Reply in 3–5 business weeks.', baseCost:15, count:0, cps:0.5, mult:1.15 },
+  { id:'b2', name:'Depop Listing', icon:'🏷️', desc:'"Vintage Nike" (manufactured 2024, Guangzhou).', baseCost:80, count:0, cps:2, mult:1.15 },
+  { id:'b3', name:'PandaBuy Cart', icon:'🛒', desc:'Add to cart. Pay agent. Track package obsessively.', baseCost:250, count:0, cps:6, mult:1.15 },
+  { id:'b4', name:"Candia's Pop-Up Stall", icon:'🏪', desc:'A folding table in a car park. VERY exclusive access.', baseCost:700, count:0, cps:15, mult:1.15 },
+  { id:'b5', name:'Customs Bribe Envelope', icon:'💰', desc:'Some problems are solved with paperwork. Others with €50.', baseCost:2000, count:0, cps:40, mult:1.15 },
+  { id:'b6', name:'QC Agent in Yiwu', icon:'🕵️', desc:'Your inside man. He has connections. And extremely low standards.', baseCost:6000, count:0, cps:100, mult:1.15 },
+  { id:'b7', name:'Fake Brand Collab', icon:'🤝', desc:'"Gucci x Candia\'s Closet" — Gucci has absolutely no idea.', baseCost:18000, count:0, cps:280, mult:1.15 },
+  { id:'b8', name:'Rep Warehouse', icon:'🏭', desc:'Your own fulfillment center. The supply chain is fully cursed.', baseCost:60000, count:0, cps:750, mult:1.15 },
+  { id:'b9', name:'Offshore Holdings LLC', icon:'🏝️', desc:'For tax purposes, Alexander lives in the Cayman Islands now.', baseCost:200000, count:0, cps:2000, mult:1.15 },
+];
+
+// ===== ACHIEVEMENTS =====
+const achievements = [
+  { id:'a1', icon:'👆', title:'First Tap', desc:'Click Alexander once.', unlocked:false, check:()=>totalClicks>=1 },
+  { id:'a2', icon:'💰', title:'First Sale', desc:'Earn 100 Candia Coins.', unlocked:false, check:()=>totalCoins>=100 },
+  { id:'a3', icon:'📦', title:'First Shipment', desc:'Buy your first business.', unlocked:false, check:()=>buildings.some(b=>b.count>=1) },
+  { id:'a4', icon:'🐼', title:'PandaBuy Regular', desc:'Earn 1,000 coins total.', unlocked:false, check:()=>totalCoins>=1000 },
+  { id:'a5', icon:'🚨', title:'Customs Notice', desc:'Reach 10,000 coins.', unlocked:false, check:()=>totalCoins>=10000 },
+  { id:'a6', icon:'🕶️', title:'Mogul Era', desc:'Earn 100,000 coins.', unlocked:false, check:()=>totalCoins>=100000 },
+  { id:'a7', icon:'🏆', title:'Rep God', desc:'Buy every upgrade.', unlocked:false, check:()=>upgrades.every(u=>u.bought) },
+  { id:'a8', icon:'🌐', title:'Going Viral', desc:'Earn 1,000,000 coins.', unlocked:false, check:()=>totalCoins>=1000000 },
+];
+
+const milestones = [
+  { at:100, msg:'"Just broke even on my first haul. Business is booming." 🙏' },
+  { at:500, msg:'"PandaBuy agent responded after 2 weeks. He said: OK."' },
+  { at:1000, msg:'"Candia\'s Closet is officially open. Notify the fashion world."' },
+  { at:5000, msg:'"Customs? Never heard of her."' },
+  { at:10000, msg:'"Someone called it fake. They were right. I blocked them."' },
+  { at:50000, msg:'"The stitching is 99% accurate. That 1% is called character."' },
+  { at:100000, msg:'"Forbes reached out. I didn\'t respond. (They did not reach out.)"' },
+  { at:500000, msg:'"Opening a replica museum. Admission: free for all PandaBuy agents."' },
+  { at:1000000, msg:'"Louie Vuitton himself just called. He was not happy."' },
+];
+const shownMilestones = new Set();
+
+function getBuildingCost(b) { return Math.floor(b.baseCost * Math.pow(b.mult, b.count)); }
+function formatNum(n) {
+  if(n>=1e12) return (n/1e12).toFixed(2)+'T';
+  if(n>=1e9) return (n/1e9).toFixed(2)+'B';
+  if(n>=1e6) return (n/1e6).toFixed(2)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(1)+'K';
+  return Math.floor(n).toString();
+}
+function recalcCPS() { coinsPerSec = buildings.reduce((s,b)=>s+b.cps*b.count,0); }
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function spawnFloat(x, y, val) {
+  const el = document.createElement('div');
+  el.className = 'float-num';
+  el.textContent = '+' + formatNum(val);
+  el.style.left = (x-22)+'px';
+  el.style.top = (y-22)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 1000);
+}
+
+function checkMilestones() {
+  milestones.forEach(m => {
+    if(totalCoins >= m.at && !shownMilestones.has(m.at)) {
+      shownMilestones.add(m.at);
+      document.getElementById('milestone-msg').textContent = m.msg;
+    }
+  });
+}
+
+function checkAchievements() {
+  let changed = false;
+  achievements.forEach(a => {
+    if(!a.unlocked && a.check()) {
+      a.unlocked = true;
+      showToast('🏆 Achievement Unlocked: ' + a.title);
+      changed = true;
+    }
+  });
+  if(changed) renderAchievements();
+}
+
+document.getElementById('click-target').addEventListener('click', function(e) {
+  coins += coinsPerClick;
+  totalCoins += coinsPerClick;
+  totalClicks++;
+  customsScares = Math.floor(totalClicks / 100);
+  spawnFloat(e.clientX, e.clientY, coinsPerClick);
+  checkMilestones();
+  checkAchievements();
+  updateUI();
+});
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('active',(i===0&&tab==='upgrades')||(i===1&&tab==='buildings'));
+  });
+  renderShop();
+}
+
+function renderShop() {
+  const container = document.getElementById('shop-content');
+  container.innerHTML = '';
+  if(activeTab === 'upgrades') {
+    upgrades.forEach(u => {
+      if(u.bought) return;
+      const canAfford = coins >= u.cost;
+      const div = document.createElement('div');
+      div.className = 'shop-item' + (canAfford ? '' : ' cant-afford');
+      div.innerHTML = `
+        <div class="item-top">
+          <div class="item-name"><span class="item-icon">${u.icon}</span>${u.name}</div>
+          <div class="item-cost">${formatNum(u.cost)} 🪙</div>
+        </div>
+        <div class="item-desc">${u.desc}</div>
+        <div class="item-effect">${u.effect}</div>`;
+      if(canAfford) div.onclick = ()=>{
+        if(coins >= u.cost) {
+          coins -= u.cost; u.bought = true; u.apply();
+          showToast('✅ ' + u.name + ' unlocked!');
+          document.getElementById('click-value-badge').textContent = '+' + coinsPerClick + ' per click';
+          checkAchievements(); renderShop(); updateUI();
+        }
+      };
+      container.appendChild(div);
+    });
+    if(upgrades.every(u=>u.bought)) {
+      const msg = document.createElement('div');
+      msg.style.cssText = 'text-align:center;color:var(--muted);font-size:0.75rem;padding:20px;font-style:italic;';
+      msg.textContent = 'All upgrades purchased. The empire is complete. 👑';
+      container.appendChild(msg);
+    }
+  } else {
+    buildings.forEach(b => {
+      const cost = getBuildingCost(b);
+      const canAfford = coins >= cost;
+      const div = document.createElement('div');
+      div.className = 'shop-item' + (canAfford ? '' : ' cant-afford');
+      div.innerHTML = `
+        <div class="item-top">
+          <div class="item-name"><span class="item-icon">${b.icon}</span>${b.name}<span class="item-count">${b.count}</span></div>
+          <div class="item-cost">${formatNum(cost)} 🪙</div>
+        </div>
+        <div class="item-desc">${b.desc}</div>
+        <div class="item-effect">+${b.cps}/sec each</div>`;
+      if(canAfford) div.onclick = ()=>{
+        const c = getBuildingCost(b);
+        if(coins >= c) {
+          coins -= c; b.count++; recalcCPS(); packages++;
+          showToast('📦 ' + b.name + ' acquired!');
+          checkAchievements(); renderShop(); updateUI();
+        }
+      };
+      container.appendChild(div);
+    });
+  }
+}
+
+function renderAchievements() {
+  const container = document.getElementById('achievements-list');
+  container.innerHTML = '';
+  achievements.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'achievement' + (a.unlocked ? ' unlocked' : '');
+    div.innerHTML = `<span class="icon">${a.icon}</span><div><div class="ach-title">${a.title}</div><div class="ach-desc">${a.desc}</div></div>`;
+    container.appendChild(div);
+  });
+}
+
+let dirtyShop = false;
+function updateUI() {
+  document.getElementById('coin-display').textContent = formatNum(coins);
+  document.getElementById('per-sec-display').textContent = '+' + formatNum(coinsPerSec) + ' coins/sec';
+  document.getElementById('stat-clicks').textContent = formatNum(totalClicks);
+  document.getElementById('stat-total').textContent = formatNum(totalCoins);
+  document.getElementById('stat-packages').textContent = formatNum(packages);
+  document.getElementById('stat-customs').textContent = customsScares;
+  const stars = Math.min(5, Math.floor(Math.log10(Math.max(1, totalCoins))));
+  document.getElementById('stat-rep').textContent = '⭐'.repeat(stars) || '0⭐';
+  dirtyShop = true;
+}
+
+// Game loop
+setInterval(()=>{
+  if(coinsPerSec > 0) {
+    const gained = coinsPerSec / 10;
+    coins += gained; totalCoins += gained;
+    packages = Math.floor(totalCoins / 50);
+    checkMilestones(); checkAchievements(); updateUI();
+  }
+}, 100);
+
+// Render shop less frequently to save CPU
+setInterval(()=>{
+  if(dirtyShop) { renderShop(); dirtyShop = false; }
+}, 300);
+
+// Init
+renderShop();
+renderAchievements();
+updateUI();
+</script>
+</body>
+</html>
