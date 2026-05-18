@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CB Clicker 👟</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>@charset "utf-8";
+
+@font-face { font-family: "Bebas Neue"; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wdhyzbi.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "Bebas Neue"; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "DM Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2rp2ywxg089UriCZaSExd86J3t9jz86Mvy4qCRAL19DksVat-JDV36TGc5pg.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "DM Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2rp2ywxg089UriCZaSExd86J3t9jz86Mvy4qCRAL19DksVat-JDV30TGc.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu6-K6h9Q.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu6-K6h9Q.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu6-K6h9Q.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@charset "utf-8";
+
+:root { --bg: #0a0a0f; --panel: #13131a; --border: #2a2a3a; --accent: #c8a96e; --accent2: #e8c98e; --red: #e05050; --green: #50c878; --text: #f0ede8; --muted: #888; --glow: rgba(200,169,110,0.3); }
+
+* { margin: 0px; padding: 0px; box-sizing: border-box; }
+
+body { background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: ; background-color: ; color: var(--text); font-family: "DM Sans", sans-serif; min-height: 100vh; overflow-x: hidden; background-image: radial-gradient(at 20% 50%, rgba(200, 169, 110, 0.04) 0%, transparent 60%), radial-gradient(at 80% 20%, rgba(100, 100, 200, 0.04) 0%, transparent 60%); }
+
+h1, h2, h3 { font-family: "Bebas Neue", sans-serif; letter-spacing: 2px; }
+
+.news-ticker { background: var(--red); padding: 5px 0px; overflow: hidden; }
+
+.ticker-inner { white-space: nowrap; animation: 35s linear 0s infinite normal none running ticker; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; }
+
+@keyframes ticker { 
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-300%); }
+}
+
+.header { text-align: center; padding: 16px 20px; border-bottom: 1px solid var(--border); background: linear-gradient(rgba(200, 169, 110, 0.05) 0%, transparent 100%); }
+
+.header h1 { font-size: 3rem; color: var(--accent); text-shadow: 0 0 40px var(--glow); line-height: 1; }
+
+.header p { color: var(--muted); font-size: 0.82rem; margin-top: 4px; font-style: italic; }
+
+.rep-badge { display: inline-block; background: var(--red); color: white; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; vertical-align: middle; animation: 2s ease 0s infinite normal none running pulse-badge; }
+
+@keyframes pulse-badge { 
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+.game-layout { display: grid; grid-template-columns: 270px 1fr 290px; height: calc(-108px + 100vh); overflow: hidden; }
+
+.left-panel { background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 14px; gap: 10px; overflow-y: auto; }
+
+.currency-display { text-align: center; background: linear-gradient(135deg, rgb(26, 26, 18), rgb(26, 21, 16)); border: 1px solid var(--accent); border-radius: 8px; padding: 14px; box-shadow: rgba(200, 169, 110, 0.1) 0px 0px 20px; }
+
+.currency-display .label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+
+.currency-display .amount { font-family: "Bebas Neue", sans-serif; font-size: 2.1rem; color: var(--accent); text-shadow: 0 0 20px var(--glow); line-height: 1.1; }
+
+.currency-display .per-sec { font-size: 0.73rem; color: var(--green); margin-top: 3px; }
+
+.stats-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+
+.stats-box h3 { font-size: 0.85rem; color: var(--accent); margin-bottom: 8px; }
+
+.stat-row { display: flex; justify-content: space-between; font-size: 0.77rem; padding: 3px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); color: var(--muted); }
+
+.stat-row span:last-child { color: var(--text); font-weight: 600; }
+
+.achievement { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 0.72rem; display: flex; gap: 8px; align-items: center; opacity: 0.38; transition: 0.3s; }
+
+.achievement.unlocked { opacity: 1; border-color: var(--accent); background: rgba(200, 169, 110, 0.06); }
+
+.achievement .icon { font-size: 1.1rem; }
+
+.achievement .ach-title { font-weight: 700; font-size: 0.7rem; }
+
+.achievement .ach-desc { color: var(--muted); font-size: 0.62rem; }
+
+.achievements-list { display: flex; flex-direction: column; gap: 4px; }
+
+.center-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 20px; position: relative; overflow: hidden; }
+
+.click-area { position: relative; cursor: pointer; user-select: none; transition: transform 0.08s; }
+
+.click-area:active { transform: scale(0.92); }
+
+.alexander-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--accent); box-shadow: rgba(200, 169, 110, 0.1) 0px 0px 0px 8px, rgba(200, 169, 110, 0.2) 0px 0px 60px, rgba(0, 0, 0, 0.5) 0px 20px 40px; display: block; pointer-events: none; }
+
+.click-ring { position: absolute; inset: -12px; border-radius: 50%; border: 2px dashed rgba(200, 169, 110, 0.3); animation: 8s linear 0s infinite normal none running spin-ring; }
+
+.click-ring-2 { position: absolute; inset: -24px; border-radius: 50%; border: 1px dashed rgba(200, 169, 110, 0.15); animation: 14s linear 0s infinite reverse none running spin-ring; }
+
+@keyframes spin-ring { 
+  100% { transform: rotate(360deg); }
+}
+
+.pandas-label { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 0.58rem; font-weight: 700; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
+
+.click-hint { text-align: center; color: var(--muted); font-size: 0.78rem; animation: 3s ease-in-out 0s infinite normal none running float; }
+
+@keyframes float { 
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.click-value-badge { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: rgb(0, 0, 0); font-weight: 700; font-size: 0.73rem; padding: 4px 14px; border-radius: 20px; display: inline-block; box-shadow: rgba(200, 169, 110, 0.3) 0px 4px 12px; }
+
+.float-num { position: fixed; font-family: "Bebas Neue", sans-serif; font-size: 1.4rem; color: var(--accent); pointer-events: none; animation: 1s ease-out 0s 1 normal forwards running floatUp; z-index: 1000; text-shadow: 0 0 10px var(--glow); }
+
+@keyframes floatUp { 
+  0% { opacity: 1; transform: translateY(0px) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.3); }
+}
+
+.right-panel { background: var(--panel); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+
+.shop-header { padding: 14px; border-bottom: 1px solid var(--border); background: rgba(200, 169, 110, 0.04); }
+
+.shop-header h2 { font-size: 1.3rem; color: var(--accent); }
+
+.shop-header p { font-size: 0.7rem; color: var(--muted); }
+
+.tabs { display: flex; border-bottom: 1px solid var(--border); }
+
+.tab { flex: 1 1 0%; padding: 8px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; background: none; border-width: medium medium 2px; border-style: none none solid; border-color: currentcolor currentcolor transparent; border-image: initial; color: var(--muted); transition: 0.2s; }
+
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(200, 169, 110, 0.05); }
+
+.shop-items { flex: 1 1 0%; overflow-y: auto; padding: 9px; display: flex; flex-direction: column; gap: 5px; }
+
+.shop-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; gap: 2px; position: relative; overflow: hidden; }
+
+.shop-item::before { content: ""; position: absolute; left: 0px; top: 0px; bottom: 0px; width: 3px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+
+.shop-item:hover:not(.cant-afford)::before { opacity: 1; }
+
+.shop-item:hover:not(.cant-afford) { border-color: var(--accent); background: rgba(200, 169, 110, 0.06); transform: translateX(2px); }
+
+.shop-item.cant-afford { opacity: 0.45; cursor: not-allowed; }
+
+.item-top { display: flex; justify-content: space-between; align-items: center; }
+
+.item-name { font-weight: 700; font-size: 0.78rem; display: flex; align-items: center; gap: 6px; }
+
+.item-icon { font-size: 0.95rem; }
+
+.item-count { background: var(--accent); color: rgb(0, 0, 0); font-size: 0.62rem; font-weight: 800; padding: 1px 6px; border-radius: 20px; min-width: 20px; text-align: center; }
+
+.item-cost { font-family: "Bebas Neue", sans-serif; font-size: 0.92rem; color: var(--accent2); }
+
+.item-desc { font-size: 0.63rem; color: var(--muted); line-height: 1.3; }
+
+.item-effect { font-size: 0.63rem; color: var(--green); }
+
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--accent); color: rgb(0, 0, 0); font-weight: 700; font-size: 0.82rem; padding: 9px 22px; border-radius: 30px; z-index: 999; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; box-shadow: rgba(200, 169, 110, 0.5) 0px 8px 30px; }
+
+.toast.show { transform: translateX(-50%) translateY(0px); }
+
+::-webkit-scrollbar { width: 4px; }
+
+::-webkit-scrollbar-track { background: var(--bg); }
+
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }</style></head>
+<body>
+<div class="news-ticker">
+<div class="ticker-inner">
+    🔥 BREAKING: Candia's Closet now shipping directly from Guangzhou      👟 Customer satisfied after waiting 6 months for "authentic" Jordans      📦 New PandaBuy haul just arrived — Alexander says "trust the process"      🧾 Customs seized shipment, Alexander blames "international logistics"      💬 "It's inspired by Louis Vuitton, not fake" — Alexander CB, 2025      🎉 Candia's Closet Summer Sale: Buy 3 reps, get 1 "real" one (also rep)      📸 New QC pics just dropped. The logo is slightly crooked but "adds character"     
+  </div>
+</div>
+<div class="header">
+<h1>CB CLICKER <span class="rep-badge">REP GANG</span></h1>
+<p>The world's #1 seller of "authentic" streetwear — powered by PandaBuy &amp; Alexander's entrepreneurial spirit 💼</p>
+</div>
+<div class="game-layout">
+<!-- LEFT PANEL -->
+<div class="left-panel">
+<div class="currency-display">
+<div class="label">Candia Coins</div>
+<div class="amount" id="coin-display">242</div>
+<div class="per-sec" id="per-sec-display">+0 coins/sec</div>
+</div>
+<div class="stats-box">
+<h3>📊 Stats</h3>
+<div class="stat-row"><span>Times Clicked</span><span id="stat-clicks">212</span></div>
+<div class="stat-row"><span>Total Earned</span><span id="stat-total">732</span></div>
+<div class="stat-row"><span>Packages Shipped</span><span id="stat-packages">14</span></div>
+<div class="stat-row"><span>Customs Scares</span><span id="stat-customs">2</span></div>
+<div class="stat-row"><span>Rep Rating</span><span id="stat-rep">⭐⭐</span></div>
+</div>
+<div class="stats-box">
+<h3>🏆 Achievements</h3>
+<div class="achievements-list" id="achievements-list"><div class="achievement unlocked"><span class="icon">👆</span><div><div class="ach-title">First Tap</div><div class="ach-desc">Click Alexander once.</div></div></div><div class="achievement unlocked"><span class="icon">💰</span><div><div class="ach-title">First Sale</div><div class="ach-desc">Earn 100 Candia Coins.</div></div></div><div class="achievement unlocked"><span class="icon">📦</span><div><div class="ach-title">First Shipment</div><div class="ach-desc">Buy your first business.</div></div></div><div class="achievement"><span class="icon">🐼</span><div><div class="ach-title">PandaBuy Regular</div><div class="ach-desc">Earn 1,000 coins total.</div></div></div><div class="achievement"><span class="icon">🚨</span><div><div class="ach-title">Customs Notice</div><div class="ach-desc">Reach 10,000 coins.</div></div></div><div class="achievement"><span class="icon">🕶️</span><div><div class="ach-title">Mogul Era</div><div class="ach-desc">Earn 100,000 coins.</div></div></div><div class="achievement"><span class="icon">🏆</span><div><div class="ach-title">Rep God</div><div class="ach-desc">Buy every upgrade.</div></div></div><div class="achievement"><span class="icon">🌐</span><div><div class="ach-title">Going Viral</div><div class="ach-desc">Earn 1,000,000 coins.</div></div></div></div>
+</div>
+</div>
+<!-- CENTER PANEL -->
+<div class="center-panel">
+<div style="text-align:center;">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--muted);letter-spacing:3px;margin-bottom:6px;">CANDIA'S CLOSET</div>
+<div style="font-size:0.7rem;color:var(--muted);">Est. Yesterday • PandaBuy Certified™ • 100% Authentic*</div>
+<div style="font-size:0.6rem;color:var(--muted);margin-top:2px;font-style:italic;">*not authentic</div>
+</div>
+<div class="click-area" id="click-target">
+<div class="click-ring-2"></div>
+<div class="click-ring"></div>
+<img alt="Alexander CB" class="alexander-img" draggable="false" id="alex-img" src="https://trueadam-s.github.io/CBclicker/alex.png"/>
+<div class="pandas-label">📦 PandaBuy CEO</div>
+</div>
+<div>
+<div class="click-hint">Click Alexander to earn Candia Coins!</div>
+<div style="text-align:center;margin-top:8px;">
+<span class="click-value-badge" id="click-value-badge">+7 per click</span>
+</div>
+</div>
+<div id="milestone-msg" style="text-align:center;min-height:28px;font-size:0.76rem;color:var(--muted);font-style:italic;max-width:300px;">"PandaBuy agent responded after 2 weeks. He said: OK."</div>
+</div>
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+<div class="shop-header">
+<h2>🛍 THE SHOP</h2>
+<p>Invest in Alexander's empire of questionable authenticity</p>
+</div>
+<div class="tabs">
+<button class="tab">Upgrades</button>
+<button class="tab active">Business</button>
+</div>
+<div class="shop-items" id="shop-content"><div class="shop-item">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">💬</span>Instagram DMs<span class="item-count">1</span></div>
+<div class="item-cost">17 🪙</div>
+</div>
+<div class="item-desc">"DM for prices." Reply in 3–5 business weeks.</div>
+<div class="item-effect">+0.5/sec each</div></div><div class="shop-item">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🏷️</span>Depop Listing<span class="item-count">0</span></div>
+<div class="item-cost">80 🪙</div>
+</div>
+<div class="item-desc">"Vintage Nike" (manufactured 2024, Guangzhou).</div>
+<div class="item-effect">+2/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🛒</span>PandaBuy Cart<span class="item-count">0</span></div>
+<div class="item-cost">250 🪙</div>
+</div>
+<div class="item-desc">Add to cart. Pay agent. Track package obsessively.</div>
+<div class="item-effect">+6/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🏪</span>Candia's Pop-Up Stall<span class="item-count">0</span></div>
+<div class="item-cost">700 🪙</div>
+</div>
+<div class="item-desc">A folding table in a car park. VERY exclusive access.</div>
+<div class="item-effect">+15/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">💰</span>Customs Bribe Envelope<span class="item-count">0</span></div>
+<div class="item-cost">2.0K 🪙</div>
+</div>
+<div class="item-desc">Some problems are solved with paperwork. Others with €50.</div>
+<div class="item-effect">+40/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🕵️</span>QC Agent in Yiwu<span class="item-count">0</span></div>
+<div class="item-cost">6.0K 🪙</div>
+</div>
+<div class="item-desc">Your inside man. He has connections. And extremely low standards.</div>
+<div class="item-effect">+100/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🤝</span>Fake Brand Collab<span class="item-count">0</span></div>
+<div class="item-cost">18.0K 🪙</div>
+</div>
+<div class="item-desc">"Gucci x Candia's Closet" — Gucci has absolutely no idea.</div>
+<div class="item-effect">+280/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🏭</span>Rep Warehouse<span class="item-count">0</span></div>
+<div class="item-cost">60.0K 🪙</div>
+</div>
+<div class="item-desc">Your own fulfillment center. The supply chain is fully cursed.</div>
+<div class="item-effect">+750/sec each</div></div><div class="shop-item cant-afford">
+<div class="item-top">
+<div class="item-name"><span class="item-icon">🏝️</span>Offshore Holdings LLC<span class="item-count">0</span></div>
+<div class="item-cost">200.0K 🪙</div>
+</div>
+<div class="item-desc">For tax purposes, Alexander lives in the Cayman Islands now.</div>
+<div class="item-effect">+2000/sec each</div></div></div>
+</div>
+</div>
+<div class="toast" id="toast">🏆 Achievement Unlocked: First Shipment</div>
+
+<style>
+.rebirth-panel, .cosmetic-panel {
+    margin: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+}
+
+.cosmetic-btn, #rebirth-btn {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+.theme-gold {
+    filter: sepia(0.3) saturate(1.8);
+}
+
+.theme-matrix {
+    background: #021;
+    color: #00ff88;
+}
+
+.theme-inferno {
+    background: linear-gradient(to bottom, #1b0000, #4d0000);
+    color: orange;
+}
+</style>
+<div class="rebirth-panel">
+<h2>🌌 Rebirth System</h2>
+<p>Rebirths: <span id="rebirth-count">0</span></p>
+<p>Multiplier: <span id="rebirth-multi">x1</span></p>
+<button id="rebirth-btn">Rebirth at 1,000,000 Coins</button>
+</div>
+<div class="cosmetic-panel">
+<h2>🎨 Cosmetics</h2>
+<button class="cosmetic-btn" data-style="default">
+        Default Theme
+    </button>
+<button class="cosmetic-btn" data-style="gold">
+        Gold Theme (5 rebirths)
+    </button>
+<button class="cosmetic-btn" data-style="matrix">
+        Matrix Theme (15 rebirths)
+    </button>
+<button class="cosmetic-btn" data-style="inferno">
+        Inferno Theme (30 rebirths)
+    </button>
+</div>
+<script>
+let rebirths = 0;
+let rebirthMultiplier = 1;
+let cosmeticTheme = "default";
+
+function saveGame() {
+    try {
+        const data = {
+            coins: typeof coins !== 'undefined' ? coins : 0,
+            rebirths,
+            rebirthMultiplier,
+            cosmeticTheme
+        };
+
+        localStorage.setItem("cbclicker_save", JSON.stringify(data));
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+function loadGame() {
+    try {
+        const raw = localStorage.getItem("cbclicker_save");
+
+        if (!raw) return;
+
+        const data = JSON.parse(raw);
+
+        if (typeof coins !== 'undefined' && data.coins !== undefined) {
+            coins = data.coins;
+        }
+
+        rebirths = data.rebirths || 0;
+        rebirthMultiplier = data.rebirthMultiplier || 1;
+        cosmeticTheme = data.cosmeticTheme || "default";
+
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+function updateRebirthUI() {
+    const count = document.getElementById("rebirth-count");
+    const multi = document.getElementById("rebirth-multi");
+
+    if (count) count.innerText = rebirths;
+    if (multi) multi.innerText = "x" + rebirthMultiplier.toFixed(2);
+}
+
+function applyTheme(theme) {
+    cosmeticTheme = theme;
+
+    document.body.classList.remove(
+        "theme-default",
+        "theme-gold",
+        "theme-matrix",
+        "theme-inferno"
+    );
+
+    document.body.classList.add("theme-" + theme);
+
+    saveGame();
+}
+
+function rebirth() {
+
+    if (typeof coins === 'undefined' || coins < 1000000) {
+        alert("Need 1,000,000 coins!");
+        return;
+    }
+
+    rebirths++;
+    rebirthMultiplier = 1 + rebirths * 0.25;
+
+    coins = 0;
+
+    alert("🌌 Rebirth successful!");
+
+    updateRebirthUI();
+
+    saveGame();
+}
+
+window.addEventListener("load", () => {
+
+    loadGame();
+
+    updateRebirthUI();
+
+    applyTheme(cosmeticTheme);
+
+    const btn = document.getElementById("rebirth-btn");
+
+    if (btn) {
+        btn.addEventListener("click", rebirth);
+    }
+
+    document.querySelectorAll(".cosmetic-btn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            const theme = btn.dataset.style;
+
+            if (theme === "gold" && rebirths < 5) {
+                alert("Requires 5 rebirths");
+                return;
+            }
+
+            if (theme === "matrix" && rebirths < 15) {
+                alert("Requires 15 rebirths");
+                return;
+            }
+
+            if (theme === "inferno" && rebirths < 30) {
+                alert("Requires 30 rebirths");
+                return;
+            }
+
+            applyTheme(theme);
+        });
+
+    });
+
+    setInterval(() => {
+        saveGame();
+    }, 5000);
+
+});
+</script>
+</body></html>
